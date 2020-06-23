@@ -10,7 +10,7 @@ def requesters_search(obj_input_data):
     try:
         connection = mysql_connection.get_connection_info()
         cursor = connection.cursor()
-        sql_search = f"SELECT device,request_date, name FROM requests WHERE user_name = '{obj_input_data['user_id']}'"
+        sql_search = f"SELECT device,request_date, name, user_name FROM requests r join requesters rs on r.requesters_id = rs.id WHERE user_name = '{obj_input_data['user_id']}'"
         sql_search += f" and (request_date like '%{obj_input_data['search_data']}%' "
 
         sql_search += f" OR device like '%{obj_input_data['search_data']}%'"
