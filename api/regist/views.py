@@ -16,7 +16,7 @@ def regist_requesters(request, format=None):
         request_data = request.data
 
         obj_data_input = {
-            "user_name": request_data['username'],
+            "user_name": request_data['email'],
             "password": request_data['password']
         }
 
