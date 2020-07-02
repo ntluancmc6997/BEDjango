@@ -1,7 +1,6 @@
 from utils import mysql_connection, response_json
 
 
-
 def requester_login(username, password):
     connection = None
     cursor = None
