@@ -92,23 +92,23 @@ def requesters_edit(obj_data_input):
         connection = mysql_connection.get_connection_info()
         cursor = connection.cursor()
 
-        sql_edit = """UPDATE users SET 
+        sql_edit = """UPDATE requests SET 
                 name = %s,
                 device = %s,
                 detail = %s,
                 status = %s,
                 request_date = NOW(),
-                start_time = NOW(),
-                end_time = NOW(),
+                start_time = CURTIME(),
+                end_time = CURTIME()
             WHERE id = %s"""
 
         cursor.execute(sql_edit,
-                       (obj_data_input['requesters_id'],
-                        obj_data_input['technicals_id'],
+                       (
                         obj_data_input['name'],
                         obj_data_input['device'],
                         obj_data_input['detail'],
                         obj_data_input['status'],
+                        obj_data_input['id']
                         ))
 
         connection.commit()
@@ -135,9 +135,9 @@ def requesters_del(obj_data_input):
         connection = mysql_connection.get_connection_info()
         cursor = connection.cursor()
 
-        sql_del = "UPDATE requests SET technicals_id = 0 WHERE id = %s"
+        sql_del = "UPDATE requests SET del_flg = 1 WHERE id = %s"
 
-        cursor.execute(sql_del, (obj_data_input['requesters_id']))
+        cursor.execute(sql_del, (obj_data_input['id']))
 
         connection.commit()
         response['code'] = 0
